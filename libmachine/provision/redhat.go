@@ -117,7 +117,7 @@ func (provisioner *RedHatProvisioner) Package(name string, action pkgaction.Pack
 	return nil
 }
 
-func installDocker(provisioner *RedHatProvisioner) error {
+func (provisioner *RedHatProvisioner) installDocker() error {
 	if err := installDockerGeneric(provisioner, provisioner.EngineOptions.InstallURL); err != nil {
 		return err
 	}
@@ -176,7 +176,7 @@ func (provisioner *RedHatProvisioner) Provision(swarmOptions swarm.Options, auth
 	}
 
 	// install docker
-	if err := installDocker(provisioner); err != nil {
+	if err := provisioner.installDocker(); err != nil {
 		return err
 	}
 
